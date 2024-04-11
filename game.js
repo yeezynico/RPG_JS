@@ -1,15 +1,15 @@
 class Game {
     constructor() {
-        this.players = [new Fighter(), new Paladin(), new Monk(), new Berzerker(), new Assassin()];
+        this.players = [new Fighter(), new Paladin(), new Monk(), new Berzerker(), new Assassin()]; // Initialisation des joueurs
         this.turnLeft = 10;
-        this.winner = null;
+        this.winner = null; // Variable pour stocker le gagnant
     }
 
     startGame() {
         console.log("Le jeu commence!");
 
         while (this.turnLeft > 0 && !this.winner) {
-            this.startTurn();
+            this.startTurn(); // méthode pour commencer un tour
             this.turnLeft--;
         }
 
@@ -21,12 +21,13 @@ class Game {
     startTurn() {
         console.log(`C'est le tour ${11 - this.turnLeft}`);
 
-        let shuffledPlayers = this.shuffleArray(this.players);
+        let shuffledPlayers = this.shuffleArray(this.players); // Mélange aléatoire de l'ordre des joueurs
+
 
         shuffledPlayers.forEach(player => {
             if (player.status === "playing") {
                 console.log(`C'est à ${player.name} de jouer`);
-                this.attackRandomTarget(player);
+                this.attackRandomTarget(player); // méthode pour attaquer une cible aléatoire
             }
         });
 
@@ -38,11 +39,11 @@ class Game {
     }
 
     attackRandomTarget(attacker) {
-        let aliveTargets = this.players.filter(player => player.status === "playing" && player !== attacker);
+        let aliveTargets = this.players.filter(player => player.status === "playing" && player !== attacker); // Filtrage des cibles vivantes
         if (aliveTargets.length > 0) {
-            let target = aliveTargets[Math.floor(Math.random() * aliveTargets.length)];
-            attacker.dealDamage(target);
-            console.log(`${attacker.name} attaque ${target.name}.`);
+            let target = aliveTargets[Math.floor(Math.random() * aliveTargets.length)]; // Sélection aléatoire d'une cible parmi celles vivantes
+            attacker.dealDamage(target); // Le joueur attaquant inflige des dégâts à la cible sélectionnée
+            console.log(`${attacker.name} attaque ${target.name}.`); // Affichage de l'action d'attaque
         }
     }
 
@@ -55,7 +56,9 @@ class Game {
 
     checkWinner() {
         let alivePlayers = this.players.filter(player => player.status === "playing");
+
         if (alivePlayers.length === 1) {
+
             this.winner = alivePlayers[0];
             return true;
         }
@@ -64,18 +67,19 @@ class Game {
 
     endGame() {
         console.log(`Fin du jeu ! ${this.winner.name} remporte la partie !`);
-        this.turnLeft = 0; // Met fin immédiatement au jeu
+        this.turnLeft = 0; // Met fin immédiatement au jeu en réinitialisant le nombre de tours restants
     }
 
     shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
+        // Méthode pour mélanger un tableau
+        for (let i = array.length - 1; i > 0; i--) { // Parcours du tableau en partant de la fin jusqu'au début
+            const j = Math.floor(Math.random() * (i + 1)); // Génération d'un indice aléatoire entre 0 et i inclus
+            [array[i], array[j]] = [array[j], array[i]]; // Échange des éléments d'indice i et j pour mélanger le tableau
         }
-        return array;
+        return array; // Retour du tableau mélangé
     }
 }
 
-// Lancement du jeu
+
 const game = new Game();
 game.startGame();

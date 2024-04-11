@@ -35,6 +35,7 @@ class Fighter extends Character {
         if (this.mana >= 20) {
             victim.takeDamage(5);
             this.mana -= 20;
+            console.log(`${this.name} utilise Dark Vision sur ${victim.name} !`);
         } else {
             console.log("Pas assez de mana pour utiliser Dark Vision.");
         }
@@ -51,6 +52,7 @@ class Paladin extends Character {
             this.hp += 5;
             victim.takeDamage(4);
             this.mana -= 40;
+            console.log(`${this.name} utilise Healing Lightning sur ${victim.name} !`);
         } else {
             console.log("Pas assez de mana pour utiliser Healing Lightning.");
         }
@@ -66,6 +68,7 @@ class Monk extends Character {
         if (this.mana >= 20) {
             this.hp += 8;
             this.mana -= 20;
+            console.log(`${this.name} utilise Heal pour récupérer des points de vie !`);
         } else {
             console.log("Pas assez de mana pour utiliser Heal.");
         }
@@ -80,6 +83,7 @@ class Berzerker extends Character {
     rage() {
         this.dmg += 1;
         this.hp -= 1;
+        console.log(`${this.name} entre dans une rage furieuse !`);
     }
 }
 
@@ -92,6 +96,7 @@ class Assassin extends Character {
         if (this.mana >= 20) {
             victim.takeDamage(7);
             this.mana -= 20;
+            console.log(`${this.name} utilise Shadow Hit sur ${victim.name} !`);
         } else {
             console.log("Pas assez de mana pour utiliser Shadow Hit.");
         }
